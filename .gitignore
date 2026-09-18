@@ -1,0 +1,25 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*.class
+
+# PyInstaller build artifacts
+build/
+dist/
+
+# Excel workbooks and temporary backup files
+*.xlsx
+*.xlsm
+*.xlsb
+*.bak
+~$*
+
+# OS and Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Internal documentation
+HANDOVER*.md
+

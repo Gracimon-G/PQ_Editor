@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PQ Editor — User Guide / 用户使用指南</title>
+  <style>
+    :root {
+      --primary: #0E703C;
+      --primary-dark: #0B5630;
+      --primary-light: #E8F5E9;
+      --accent: #2196F3;
+      --bg: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --text: #201F1E;
+      --text-muted: #605E5C;
+      --border: #E1DFDD;
+      --code-bg: #1E1E1E;
+      --code-fg: #D4D4D4;
+      --warning-bg: #FFF4CE;
+      --warning-border: #FFB900;
+      --success-bg: #DFF6DD;
+      --success-border: #107C41;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding-bottom: 60px;
+    }
+
+    /* Header Banner */
+    header {
+      background: linear-gradient(135deg, #0E703C 0%, #104E2D 100%);
+      color: #FFFFFF;
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    header .slogan {
+      font-size: 1.1rem;
+      color: #A3D9B5;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .lang-switcher {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 4px;
+      border-radius: 8px;
+      gap: 4px;
+      backdrop-filter: blur(8px);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active, .lang-btn:hover {
+      background: #FFFFFF;
+      color: var(--primary-dark);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1040px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 28px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .card:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .card-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 10px;
+    }
+
+    /* Bilingual Layout */
+    .bi-block {
+      margin-bottom: 16px;
+    }
+    .en {
+      color: #24292E;
+      margin-bottom: 6px;
+    }
+    .cn {
+      color: #555555;
+      font-size: 0.95rem;
+    }
+    body.show-en-only .cn { display: none !important; }
+    body.show-cn-only .en { display: none !important; }
+
+    /* Highlights & Badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-green { background: #E8F5E9; color: #0E703C; }
+    .badge-blue { background: #E3F2FD; color: #1976D2; }
+    .badge-orange { background: #FFF3E0; color: #E65100; }
+
+    /* Alerts */
+    .alert {
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 0.95rem;
+    }
+    .alert-tip { background: var(--primary-light); border-left: 4px solid var(--primary); color: #1B5E20; }
+    .alert-warn { background: var(--warning-bg); border-left: 4px solid var(--warning-border); color: #8A6D3B; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 0.95rem;
+    }
+    th, td {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+    th {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+    tr:nth-child(even) { background-color: #FAFAFA; }
+
+    /* Key Shortcut tag */
+    kbd {
+      background: #F3F2F1;
+      border: 1px solid #C8C6C4;
+      border-bottom: 2px solid #A19F9D;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: monospace;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #323130;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.08);
+    }
+
+    /* Steps list */
+    .step-list {
+      list-style: none;
+      counter-reset: step-counter;
+      padding-left: 0;
+    }
+    .step-list > li {
+      counter-increment: step-counter;
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 42px;
+    }
+    .step-list > li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>PQ Editor</h1>
+    <div class="slogan">Unchained M Engine · Zero Locks, Zero Freezes</div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLanguage('both')">🌐 Bilingual / 双语</button>
+      <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
+      <button class="lang-btn" onclick="setLanguage('cn')">🇨🇳 中文</button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Section 1: Overview -->
+    <div class="card">
+      <div class="card-title">💡 1. Overview / 工具概述</div>
+      <div class="bi-block">
+        <p class="en"><strong>PQ Editor</strong> is a standalone, ultra-fast Power Query (M) code editor and dependency analyzer designed for Excel workbooks (<code>.xlsx</code>, <code>.xlsm</code>, <code>.xlsb</code>). It reads and writes M code directly to the workbook’s internal <code>DataMashup</code> package without launching Microsoft Excel.</p>
+        <p class="cn"><strong>PQ Editor</strong> 是一款专为 Excel 工作簿（支持 <code>.xlsx</code>、<code>.xlsm</code>、<code>.xlsb</code>）设计的独立高速 Power Query (M 代码) 编辑器与依赖分析器。它直接读写工作簿内部的 <code>DataMashup</code> 二进制包，<strong>完全无需启动 Excel</strong>。</p>
+      </div>
+
+      <div class="alert alert-tip">
+        <div>
+          <div class="en"><strong>Why use PQ Editor?</strong> When editing M code inside Excel's native Power Query editor, Excel blocks all other workbook interactions, spins up heavy background processes, and frequently locks or freezes. PQ Editor allows instant, lightweight code editing, batch exports, visual lineage inspection, and safe atomic saves.</div>
+          <div class="cn" style="margin-top:4px;"><strong>为什么使用 PQ Editor？</strong> 在原生 Excel 的 Power Query 编辑器中编写代码时，Excel 会独占并锁定界面，导致其他表格无法操作甚至卡死冻结。PQ Editor 带来轻量毫秒级启动、无需打开 Excel、语法自动校验、依赖全景可视化与安全自动备份。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Getting Started -->
+    <div class="card">
+      <div class="card-title">🚀 2. Quick Start / 快速上手</div>
+      <ol class="step-list">
+        <li>
+          <div class="bi-block">
+            <p class="en"><strong>Open a Workbook:</strong> Click <kbd>📂 Open…</kbd> to open any <code>.xlsx</code>, <code>.xlsm</code>, or <code>.xlsb</code> file. The status banner displays the file name and total queries loaded.</p>
+            <p class="cn"><strong>打开工作簿：</strong> 点击顶部工具栏的 <kbd>📂 Open…</kbd> 打开任意 <code>.xlsx</code>、<code>.xlsm</code>、<code>.xlsb</code> 文件。顶部徽标会立即显示当前加载的文件名与查询总数。</p>
+          </div>
+        </li>
+        <li>
+          <div class="bi-block">
+            <p class="en"><strong>Navigate Queries:</strong> The left sidebar organizes all queries by their <strong>Query Groups (Folders)</strong> (e.g. <code>📁 Helper Query</code>, <code>📁 Other Queries</code>) and displays their real-time Excel destination:
+              <br/>• 📊 <strong>Table: Sheet!Table</strong> — Loaded to a worksheet table.
+              <br/>• 🔗 <strong>Connection Only</strong> — Retained in memory without populating sheets.
+              <br/>• 📈 <strong>Data Model / PivotTable</strong> — Loaded to the Power Pivot model.
+              <br/>Double-click or select any query in the sidebar to jump directly to its definition in the code editor.
+            </p>
+            <p class="cn"><strong>定位与切换查询：</strong> 左侧导航栏根据 Excel 中的<strong>查询组文件夹</strong>（如 <code>📁 Helper Query</code>、<code>📁 Other Queries</code>）自动树形分类，并显示精确的加载目标：
+              <br/>• 📊 <strong>Table: 工作表!表名</strong> — 已加载至特定工作表表格。
+              <br/>• 🔗 <strong>Connection Only</strong> — 仅创建连接，不落地工作表。
+              <br/>• 📈 <strong>Data Model / PivotTable</strong> — 已加载至数据模型或数据透视表。
+              <br/>单击或双击任意查询，右侧代码区会立即平滑跳转并高亮该查询定义。
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="bi-block">
+            <p class="en"><strong>Edit & Validate:</strong> Edit M formulas with full syntax highlighting, synchronized line numbers, and live cursor position tracking <span style="white-space: nowrap;"><kbd>(Ln xx, Col xx)</kbd></span>.</p>
+            <p class="cn"><strong>代码编辑与校验：</strong> 在右侧编辑器中编辑 M 语言代码，享受完整的语法高亮、同步行号显示以及底部状态栏的实时光标行/列追踪 <span style="white-space: nowrap;"><kbd>(Ln xx, Col xx)</kbd></span>。</p>
+          </div>
+        </li>
+        <li>
+          <div class="bi-block">
+            <p class="en"><strong>Save Changes Safely:</strong> Click <kbd>💾 Save ▾</kbd> and choose <kbd>Save (in place)</kbd> or <kbd>Save As New File…</kbd>. An automatic <code>.bak</code> backup is created before overwriting.</p>
+            <p class="cn"><strong>安全保存：</strong> 点击 <kbd>💾 Save ▾</kbd> 下拉菜单选择 <kbd>Save (in place)</kbd> 或 <kbd>Save As New File…</kbd>。保存时系统会在同目录下自动生成 <code>.bak</code> 备份文件。</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Section 3: Core Features Detailed -->
+    <div class="card">
+      <div class="card-title">✨ 3. Key Features / 核心功能详解</div>
+
+      <!-- Feature 3.1 -->
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: var(--primary); margin-bottom: 8px;">3.1 Query Lineage & Dependency Graph / 依赖关系图</h3>
+        <div class="bi-block">
+          <p class="en">Click <kbd>📊 Dependencies ▾</kbd> to inspect how queries feed into each other:</p>
+          <p class="cn">点击工具栏 <kbd>📊 Dependencies ▾</kbd> 查看查询上下游数据流向：</p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Mode / 模式</th>
+              <th>Description (EN)</th>
+              <th>说明 (中文)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Canvas View<br/>(内置画布)</strong></td>
+              <td>Interactive in-app canvas showing clean topological dataflow arrows. Supports mouse pan & drag, scroll zoom, and double-clicking nodes to jump to query code.</td>
+              <td>内置交互式画布，展现清爽高对比度的数据流向箭头，支持鼠标拖拽平移、滚轮缩放，双击节点可直接跳转到对应查询代码。</td>
+            </tr>
+            <tr>
+              <td><strong>🌐 Web Graph<br/>(浏览器大图)</strong></td>
+              <td>Launches an interactive browser visualization powered by Mermaid.js. Fully details <strong>Join Kinds</strong> (e.g. <code>LeftOuter</code>, <code>Inner</code>) and <strong>Key Matching Fields</strong> (e.g. <code>[Order]=[Order]</code>).</td>
+              <td>在浏览器中打开全屏可交互 Mermaid 关系图，完整展示表间<strong>连接类型</strong>（如 <code>LeftOuter</code>、<code>Inner</code>）及<strong>关联键字段</strong>（如 <code>[Order]=[Order]</code>）。</td>
+            </tr>
+            <tr>
+              <td><strong>Mermaid Markdown</strong></td>
+              <td>Copies or exports standard Mermaid code for documentation, GitHub, or Notion.</td>
+              <td>一键复制或导出标准 Mermaid 流程图代码，方便插入技术文档、Notion 或 Markdown。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Feature 3.2 -->
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: var(--primary); margin-bottom: 8px;">3.2 Pre-Save Syntax Validation / 保存前语法防护</h3>
+        <div class="bi-block">
+          <p class="en">Before writing back to the workbook, PQ Editor scans the M code for unbalanced brackets (<code>()</code>, <code>[]</code>, <code>{}</code>), unclosed strings (<code>"..."</code>), unclosed quoted identifiers (<code>#""</code>), and unmatched <code>let ... in</code> blocks. If syntax errors exist, it warns you before saving and positions the cursor directly at the problematic line.</p>
+          <p class="cn">在写入工作簿前，PQ Editor 会自动运行语法平衡检测器，排查未闭合的括号（<code>()</code>、<code>[]</code>、<code>{}</code>）、未闭合的字符串（<code>"..."</code>）、带引号标识符（<code>#""</code>）以及缺失的 <code>let ... in</code> 关键字块。若发现异常会提前弹窗预警，并自动将光标定位到错误所在行，杜绝损坏 Excel 模型的风险。</p>
+        </div>
+      </div>
+
+      <!-- Feature 3.3 -->
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: var(--primary); margin-bottom: 8px;">3.3 File Lock & Backup Protection / 文件锁保护与备份恢复</h3>
+        <div class="bi-block">
+          <p class="en">• <strong>Locked by Excel Detection:</strong> If the file is open in Microsoft Excel, Windows places an exclusive lock on it. PQ Editor detects this and provides a friendly popup advising you to close Excel or use <kbd>Save As New File…</kbd>.<br/>• <strong>1-Click Backup Restore:</strong> If you make an unwanted change, choose <kbd>💾 Save ▾</kbd> → <kbd>Restore Backup from .bak</kbd> to instantly revert the workbook to its previous state.</p>
+          <p class="cn">• <strong>Excel 文件占用智能提示：</strong> 当目标 Excel 文件正在被 Excel 运行时占用时，Windows 会拒绝写入。PQ Editor 会弹出友好中文/英文提示，指导您关闭 Excel 后重试或使用 <kbd>Save As New File…</kbd> 保存。<br/>• <strong>一键从备份恢复：</strong> 如代码修改有误，点击 <kbd>💾 Save ▾</kbd> → <kbd>Restore Backup from .bak</kbd>，即可一键将工作簿无损还原到上次修改前的初始状态。</p>
+        </div>
+      </div>
+
+      <!-- Feature 3.4 -->
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: var(--primary); margin-bottom: 8px;">3.4 Multi-Extension Code Export / 多格式脚本导出</h3>
+        <div class="bi-block">
+          <p class="en">Under <kbd>📤 Export ▾</kbd>, you can export queries as:
+            <br/>• <strong>Single Combined File:</strong> Exports all queries into one file (choose <code>.pq</code>, <code>.m</code>, or <code>.txt</code>).
+            <br/>• <strong>Split per Query:</strong> Creates a folder containing individual <code>&lt;QueryName&gt;.pq</code> files for clean version control (Git).
+          </p>
+          <p class="cn">通过 <kbd>📤 Export ▾</kbd> 下拉菜单，可灵活导出 M 代码：
+            <br/>• <strong>合并导出为单文件：</strong> 将所有查询合并保存为一个文件（自由选择 <code>.pq</code>、<code>.m</code> 或 <code>.txt</code> 扩展名）。
+            <br/>• <strong>拆分导出每个查询：</strong> 自动为每个查询生成独立的脚本文件（如 <code>Query1.pq</code>），非常适合 Git 版本控制与代码库归档。
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature 3.5 -->
+      <div>
+        <h3 style="color: var(--primary); margin-bottom: 8px;">3.5 Dark & Light Theme / 深色与浅色模式</h3>
+        <div class="bi-block">
+          <p class="en">Click the <kbd>🌙 Dark Mode</kbd> / <kbd>☀️ Light Mode</kbd> toggle in the top-right header to switch themes. The dark theme adopts VS Code dark palette (<code>#1E1E1E</code> editor, syntax highlights, and dark search/find entries).</p>
+          <p class="cn">点击右上角的 <kbd>🌙 Dark Mode</kbd> / <kbd>☀️ Light Mode</kbd> 按钮可一键切换主题风格。深色主题采用专业 VS Code 调色板（<code>#1E1E1E</code> 背景、高对比度语法配色，输入框与搜索栏全面深色化适配）。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Section 4: Keyboard Shortcuts Reference -->
+    <div class="card">
+      <div class="card-title">⌨️ 4. Keyboard Shortcuts / 快捷键大全</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Shortcut / 快捷键</th>
+            <th>Function (English)</th>
+            <th>功能说明 (中文)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
+            <td>Save workbook in place (with automatic <code>.bak</code>)</td>
+            <td>直接保存工作簿（自动建立 <code>.bak</code> 备份）</td>
+          </tr>
+          <tr>
+            <td><kbd>Ctrl</kbd> + <kbd>F</kbd></td>
+            <td>Open Find & Replace bar (focuses Find field)</td>
+            <td>打开查找与替换栏（光标定位至查找框）</td>
+          </tr>
+          <tr>
+            <td><kbd>Ctrl</kbd> + <kbd>H</kbd></td>
+            <td>Open Find & Replace bar (focuses Replace field)</td>
+            <td>打开查找与替换栏（光标定位至替换框）</td>
+          </tr>
+          <tr>
+            <td><kbd>Ctrl</kbd> + <kbd>/</kbd></td>
+            <td>Toggle line comment (<code>//</code>) for current line or selection</td>
+            <td>快速注释 / 取消注释当前行或多行选中代码 (<code>//</code>)</td>
+          </tr>
+          <tr>
+            <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>/</kbd></td>
+            <td>Uncomment selected lines (strips leading <code>//</code>)</td>
+            <td>批量取消注释所选代码行（移除开头的 <code>//</code>）</td>
+          </tr>
+          <tr>
+            <td><kbd>Enter</kbd> <em>(in Find)</em></td>
+            <td>Jump to next search match</td>
+            <td>在查找框中按回车：跳至下一个匹配项</td>
+          </tr>
+          <tr>
+            <td><kbd>Shift</kbd> + <kbd>Enter</kbd></td>
+            <td>Jump to previous search match</td>
+            <td>在查找框中按 Shift+回车：跳至上一个匹配项</td>
+          </tr>
+          <tr>
+            <td><kbd>Esc</kbd> <em>(in Find)</em></td>
+            <td>Close Find & Replace bar and return to editor</td>
+            <td>关闭查找替换栏并返回代码编辑器</td>
+          </tr>
+          <tr>
+            <td><kbd>Ctrl</kbd> + <kbd>Z</kbd> / <kbd>Ctrl</kbd> + <kbd>Y</kbd></td>
+            <td>Undo / Redo editor modifications</td>
+            <td>撤销 / 重做代码编辑修改</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 5: FAQ & Troubleshooting -->
+    <div class="card">
+      <div class="card-title">❓ 5. FAQ & Troubleshooting / 常见问题排查</div>
+
+      <div class="bi-block" style="margin-bottom: 18px;">
+        <h4 style="color: #D83B01; margin-bottom: 4px;">Q1: "Cannot save because file is locked by Excel"</h4>
+        <p class="en"><strong>Cause:</strong> You have the same workbook open in Microsoft Excel. Windows locks open Excel files against external modification.<br/><strong>Solution:</strong> Either close the file in Excel and click Save again, or click <kbd>Save As New File…</kbd> to save your edited version under a new name.</p>
+        <p class="cn"><strong>原因：</strong> 您当前正在 Microsoft Excel 中打开着此工作簿，Windows 操作系统对打开的文件启用了独占写保护。<br/><strong>解决方案：</strong> 在 Excel 中关闭该表格后重新点击保存；或者选择工具栏中的 <kbd>Save As New File…</kbd> 保存为副本。</p>
+      </div>
+
+      <div class="bi-block" style="margin-bottom: 18px;">
+        <h4 style="color: #D83B01; margin-bottom: 4px;">Q2: What is the status indicator <span style="white-space: nowrap;"><kbd>(Ln xx, Col xx)</kbd></span>?</h4>
+        <p class="en"><strong>Answer:</strong> <code>Ln</code> is the current line number (row) of your cursor, and <code>Col</code> is the column offset (character position on that line). It updates live as you type or move the cursor.</p>
+        <p class="cn"><strong>解答：</strong> <code>Ln</code> 代表光标当前所在的行号，<code>Col</code> 代表当前行的字符列数位置。随着按键移动光标，数值实时动态更新。</p>
+      </div>
+
+      <div class="bi-block">
+        <h4 style="color: #D83B01; margin-bottom: 4px;">Q3: Will editing M code via PQ Editor break existing Excel data?</h4>
+        <p class="en"><strong>Answer:</strong> No. PQ Editor strictly modifies only the M query formula package inside <code>customXml/</code> without altering worksheet cells, pivot caches, formulas, VBA code, or formatting. Furthermore, an automatic <code>.bak</code> copy is always created as a safety net.</p>
+        <p class="cn"><strong>解答：</strong> 不会。PQ Editor 仅精确重写 <code>customXml/</code> 目录下的 M 语言公式包，完全不会触碰工作表单元格、数据透视表缓存、单元格公式、VBA 代码或格式排版。且每次写入均有同名 <code>.bak</code> 文件兜底保障。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>PQ Editor · Unchained M Engine · Documentation © 2026</p>
+  </footer>
+
+  <script>
+    function setLanguage(lang) {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.body.classList.remove('show-en-only', 'show-cn-only');
+      if (lang === 'en') {
+        document.body.classList.add('show-en-only');
+      } else if (lang === 'cn') {
+        document.body.classList.add('show-cn-only');
+      }
+    }
+  </script>
+</body>
+</html>
